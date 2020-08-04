@@ -8,6 +8,7 @@ SELECT COUNT(DISTINCT (cap-shape, cap-color, odor, gill-size, gill-color, stalk-
 --- Method 1 - this is a non-traditional way
 
 SELECT COUNT(DISTINCT (habitat, cap-color)) FROM mushrooms;
+SELECT COUNT(*) FROM mushrooms;
 
 --- then calculate the ratio/% of distinct vs total number of records and use the result as an estimation of degree of "correlation" / or rather alignment
 
