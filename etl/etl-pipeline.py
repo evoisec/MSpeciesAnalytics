@@ -2,12 +2,15 @@ import pandas as pd
 #import psycopg2
 import numpy as np
 
-
+#Note: the ref data dictionories can be initialized/loaded from file/db for increased config flexibility
 translDictCapShape = {'b': 'bell', 'c': 'conical', 'x': 'convex','f': 'flat', 'k': 'knobbed', 's': 'sunken'}
 columnDict = {'cap_shape': translDictCapShape}
 
+# Pluggable (in any ETL workflow step) Data Engine for Validates and Translates of Data according to specific algo
 def dataEngineVT(x, dict):
     print(x)
+    #note: the data validation occurs by  default due to the use of dictionaries which return None of the key doesnt exist
+    # i.e. if the data is not valid
     return dict.get(str(x))
 
 #####################################################################################33
@@ -39,9 +42,6 @@ for colName in mushroomsPDF.columns:
     # validates and translates only one column so far, on purpose
     if colName == 'cap_shape':
         mushroomsPDF[colName] = mushroomsPDF[colName].apply(dataEngineVT, dict=columnDict.get(colName))
-
-
-
 
 print(mushroomsPDF.head(5))
 
