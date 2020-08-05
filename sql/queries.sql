@@ -12,7 +12,7 @@ SELECT COUNT(DISTINCT (cap_shape, cap_color, odor, gill_size, gill_color, stalk_
 
 SELECT count(m.*)
 FROM mushrooms m
-JOIN (SELECT habitat, cap-color, COUNT(*)
+JOIN (SELECT habitat, cap_color, COUNT(*)
 FROM mushrooms
 GROUP BY habitat, cap-color
 HAVING count(*) > 1 ) b
