@@ -63,6 +63,8 @@ print(mushroomsPDF.head(5))
 # Validate and Transform Dataframe Data (in a single operation)
 #################################################
 
+# Validate abd Convert All Categorical Columns
+
 for colName in mushroomsPDF.columns:
     print(colName)
 
