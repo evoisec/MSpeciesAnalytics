@@ -5,10 +5,9 @@ SELECT COUNT(DISTINCT (cap-shape, cap-color, odor, gill-size, gill-color, stalk-
 
 --- Does habitat and cap-color correlate?
 
---- Method 1 - this is a non-traditional way
+--- Method 1
 
-SELECT COUNT(DISTINCT (habitat, cap-color)) FROM mushrooms;
-SELECT COUNT(*) FROM mushrooms;
+
 
 --- then calculate the ratio/% of distinct vs total number of records and use the result as an estimation of degree of "correlation" / or rather alignment
 
