@@ -24,3 +24,4 @@ SELECT corr("habitat", "cap-color") as "Corr Coef Using PGSQL Func" FROM mushroo
 ---- probably thisis best done in programming code rather than SQL and by applying an ML algo like Clustering but using Gower Distance
 
 --- Considering a specific geographical point, what colours should we be able to see in the 10 km around it?
+

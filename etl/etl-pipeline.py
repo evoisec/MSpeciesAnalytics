@@ -1,6 +1,9 @@
+import sys
+
 import pandas as pd
 #import psycopg2
 import numpy as np
+from sqlalchemy import create_engine
 
 #Note: the ref data dictionories can be initialized/loaded from file/db for increased config flexibility
 translDictCapShape = {'b': 'bell', 'c': 'conical', 'x': 'convex','f': 'flat', 'k': 'knobbed', 's': 'sunken'}
@@ -56,6 +59,9 @@ mushroomsPDF.rename(columns={'1': 'cap_shape', '3': 'cap_color', '5': 'odor', '8
 pd.set_option('display.max_columns', None)
 print(mushroomsPDF.head(5))
 
+print(mushroomsPDF.dtypes)
+input("Press Enter to continue...")
+
 #################################################
 # Validate and Transform Dataframe Data (in a single operation)
 #################################################
@@ -73,13 +79,19 @@ mushroomsPDF = mushroomsPDF.fillna(value=np.nan)
 print(mushroomsPDF.head(5))
 print(mushroomsPDF)
 
+print(mushroomsPDF.dtypes)
 
 #################################################
-# Persist to file dataset
+# Persist the ETL pipeline output to file dataset
 #################################################
 
 mushroomsPDF.to_csv("c:\\Users\evo\mushrooms-processed.csv", index = False, header=True)
 
+sys.exit()
+
 #################################################
-# Bulk Insert in e.g. PostgressSQL DB
+# Bulk Insert in e.g. PostgressSQL DB. Using the Alchemy SQL frameowrk provides ORM like functionality for Pandas dataframes
 #################################################
+
+engine = create_engine('postgres+psycopg2://dbserver:mypassword@db.com:5432/mydatabase', echo=False)
+mushroomsPDF.to_sql('mushrooms', con=engine)
