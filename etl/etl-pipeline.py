@@ -1,5 +1,5 @@
 import sys
-
+import swifter
 import pandas as pd
 #import psycopg2
 import numpy as np
@@ -68,7 +68,8 @@ for colName in mushroomsPDF.columns:
 
     # validates and translates only one column so far, on purpose
     if colName != 'lat' and colName != 'lon' and colName != 'Time':
-        mushroomsPDF[colName] = mushroomsPDF[colName].apply(dataEngineVT, dict=columnDict.get(colName))
+        #with Swifter, this ETL step runs on multiple cores in parallel
+        mushroomsPDF[colName] = mushroomsPDF[colName].swifter.apply(dataEngineVT, dict=columnDict.get(colName))
 
 # Convert the Python None to the Pandas NaN
 mushroomsPDF = mushroomsPDF.fillna(value=np.nan)
