@@ -30,7 +30,9 @@ SELECT corr("habitat", "cap-color") as "Corr Coef Using PGSQL Func" FROM mushroo
 
 -- Params
 
+-- @MinLat, @MaxLat, @MinLong, @MaxLong: derived from the coordinates of square with side which is equal to the required radius
 
+-- MyLat, MyLomg: the coordinates of the ref point for the query - the center of the circle with radius R
 
 -- Query
 
