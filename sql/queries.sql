@@ -32,11 +32,9 @@ SELECT corr("habitat", "cap-color") as "Corr Coef Using PGSQL Func" FROM mushroo
 
 -- @MinLat, @MaxLat, @MinLong, @MaxLong: derived from the coordinates of square with side which is equal to the required radius
 
--- MyLat, MyLomg: the coordinates of the ref point for the query - the center of the circle with radius R
-
 -- Query
 
 SELECT cap_color, gill_color, Vail_color
 FROM mushrooms
-WHERE     MyLat >= @MinLat AND MyLat <= @MaxLat
-      AND MyLong >= @MinLong AND MyLong <= @MaxLong
+WHERE     lat >= @MinLat AND lat <= @MaxLat
+      AND lon >= @MinLong AND lon <= @MaxLong
