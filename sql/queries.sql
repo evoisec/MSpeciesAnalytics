@@ -5,7 +5,21 @@ SELECT COUNT(DISTINCT (cap_shape, cap_color, odor, gill_size, gill_color, stalk_
 
 --- Does habitat and cap-color correlate?
 
---- Method 1
+-- the data in these 2 columns is a) categorical and b) of different business semantics
+
+--- Method 1 - find and count all rows containinng duplicate values in the 2 target columns. Then re;ate the count to the totl record count
+-- to find a "pearson" like correlation cofecient but for Categroical data moreover f different business semantics
+
+SELECT count(m.*)
+FROM mushrooms m
+JOIN (SELECT habitat, cap-color, COUNT(*)
+FROM mushrooms
+GROUP BY habitat, cap-color
+HAVING count(*) > 1 ) b
+ON m.habitat = b.habitat
+AND m.cap_color = b.cao_color
+
+-- the following query would have been true only in the case if the business semantics of the two columns were the same
 
 SELECT count(*)
 FROM mushrooms m
