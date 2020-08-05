@@ -28,3 +28,13 @@ SELECT corr("habitat", "cap-color") as "Corr Coef Using PGSQL Func" FROM mushroo
 
 --- Considering a specific geographical point, what colours should we be able to see in the 10 km around it?
 
+-- Params
+
+
+
+-- Query
+
+SELECT cap_color, gill_color, Vail_color
+FROM mushrooms
+WHERE     MyLat >= @MinLat AND MyLat <= @MaxLat
+      AND MyLong >= @MinLong AND MyLong <= @MaxLong
