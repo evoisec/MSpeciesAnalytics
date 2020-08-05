@@ -35,7 +35,7 @@ columnDict['habitat'] = translDictHabitat
 
 # Pluggable (in any ETL workflow step) Data Engine for Validates and Translates of Data according to specific algo
 def dataEngineVT(x, dict):
-    print(x)
+    #print(x)
     #note: the data validation occurs by  default due to the use of dictionaries which return None of the key doesnt exist
     # i.e. if the data is not valid
     return dict.get(str(x))
@@ -59,9 +59,6 @@ mushroomsPDF.rename(columns={'1': 'cap_shape', '3': 'cap_color', '5': 'odor', '8
 pd.set_option('display.max_columns', None)
 print(mushroomsPDF.head(5))
 
-print(mushroomsPDF.dtypes)
-input("Press Enter to continue...")
-
 #################################################
 # Validate and Transform Dataframe Data (in a single operation)
 #################################################
@@ -73,19 +70,27 @@ for colName in mushroomsPDF.columns:
     if colName != 'lat' and colName != 'lon' and colName != 'Time':
         mushroomsPDF[colName] = mushroomsPDF[colName].apply(dataEngineVT, dict=columnDict.get(colName))
 
-# Conver the Python None to the Pandas NaN
+# Convert the Python None to the Pandas NaN
 mushroomsPDF = mushroomsPDF.fillna(value=np.nan)
 
-print(mushroomsPDF.head(5))
-print(mushroomsPDF)
+# Validate and convert the Time column. Converts invalid data to NaT
+mushroomsPDF['Time'] = pd.to_datetime(mushroomsPDF['Time'], format='%I:%M:%S %p', errors='coerce').dt.time
 
-print(mushroomsPDF.dtypes)
+# Validate and convert the lon and lat columns. Converts invalid data to NaN
+mushroomsPDF['lat'] = pd.to_numeric(mushroomsPDF['lat'],errors='coerce')
+mushroomsPDF['lon'] = pd.to_numeric(mushroomsPDF['lon'],errors='coerce')
+
+#print(mushroomsPDF[mushroomsPDF.Time.isnull()])
+#print(mushroomsPDF.dtypes)
 
 #################################################
 # Persist the ETL pipeline output to file dataset
 #################################################
 
-mushroomsPDF.to_csv("c:\\Users\evo\mushrooms-processed.csv", index = False, header=True)
+# writes NaN and Nat as empty string (zero characters) in the csv file
+mushroomsPDF.to_csv("c:\\Users\evo\mushrooms-processed.csv", index = True, header=True)
+# writes NaN and Nat as NaN in the csv file
+#mushroomsPDF.to_csv("c:\\Users\evo\mushrooms-processed.csv", index = True, header=True, na_rep='NaN')
 
 sys.exit()
 
