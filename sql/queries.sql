@@ -1,13 +1,17 @@
 ---	How many different species of mushroom are there, if a species is identified by the attributes 1-20?
 
-SELECT COUNT(DISTINCT (cap-shape, cap-color, odor, gill-size, gill-color, stalk-color-above-ring,
-                        veil-color, ring-type, spore-print-color)) FROM mushrooms;
+SELECT COUNT(DISTINCT (cap_shape, cap_color, odor, gill_size, gill_color, stalk_color_above_ring,
+                        veil_color, ring_type, spore_print_color)) FROM mushrooms;
 
 --- Does habitat and cap-color correlate?
 
 --- Method 1
 
+SELECT count(*)
+FROM mushrooms m
+WHERE m.habitat = m.cap_color;
 
+-- then determine the ration of the count obtained from the above and the total number of records in the dataset - this will provide a "pearson" like correlation coeficient
 
 --- then calculate the ratio/% of distinct vs total number of records and use the result as an estimation of degree of "correlation" / or rather alignment
 
