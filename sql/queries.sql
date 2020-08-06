@@ -50,7 +50,7 @@ SELECT corr("habitat", "cap-color") as "Corr Coef Using PGSQL Func" FROM mushroo
 
 SELECT cap_color, gill_color, Vail_color
 FROM mushrooms
-WHERE     power((lon-xc), 2) + power((lat-cy), 2) <= power(R, 2)
+WHERE     power((lon-cx), 2) + power((lat-cy), 2) <= power(R, 2)
 
 -- Method 2 - based on Square aproximation of Circle
 
