@@ -34,11 +34,25 @@ WHERE m.habitat = m.cap_color;
 --- use an ETL job to turn the two columns from String into Categorical Values and then use the SQL Pearson Correlation function (although it doesnt make a full sense
 --- for categorical data)
 
-SELECT corr("habitat", "cap-color") as "Corr Coef Using PGSQL Func" FROM mushrooms;
-
 --- Method 3
 
 ---- probably thisis best done in programming code rather than SQL and by applying an ML algo like Clustering but using Gower Distance
+
+
+SELECT corr("habitat", "cap-color") as "Corr Coef Using PGSQL Func" FROM mushrooms;
+
+
+-- Method 1 - based on faithful model of a circle
+
+-- Equation of all points inside a Circle with Center with coordinates cx, cy and radius R
+-- power((x-xc), 2) + power((y-cy), 2) <= power(R, 2)
+-- Outstanding - need to include the formula for conversion from lat/lon degrees to miles - time is up however
+
+SELECT cap_color, gill_color, Vail_color
+FROM mushrooms
+WHERE     power((lon-xc), 2) + power((lat-cy), 2) <= power(R, 2)
+
+-- Method 2 - based on Square aproximation of Circle
 
 --- Considering a specific geographical point, what colours should we be able to see in the 10 km around it?
 
